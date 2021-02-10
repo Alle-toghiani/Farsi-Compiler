@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="notice">
+    <p dir="rtl" class="notice__message">
+      در هنگام مقدار دهی در دو طرف علامت " - " اسپیس قرار دهید
+    </p>
+  </div>
+  <div class="container__input">
+    <h1 class="container__title">Farsi Compiler</h1>
+    <form
+      #f="ngForm"
+      (ngSubmit)="onSubmit(f)"
+      class="form" >
+      <div class="form__main">
+        <div class="form__input">
+          <label class="form__title">INPUT Commands</label>
+            <textarea ngModel
+              dir="rtl"
+              id="inputText"
+                      class="form__textArea"
+              name="inputText"
+              >
+             </textarea>
+        </div>
+        <div class="form__output">
+          <label class="form__title">OUTPUT results</label>
+          <p class="form__output__message"
+            *ngFor="let message of outputText,let i = index"
+            dir="rtl">
+            {{message}}
+          </p>
+        </div>
+      </div>
+
+      <div class="form__actions">
+        <button type="submit" class="form__submitBtn">Compile</button>
+      </div>
+
+    </form>
+  </div>
+
+
+  <div class="stateOutput">
+
+  </div>
+  <div class="terminal">
+    <label class="terminal__title">Terminal: </label>
+    <br>
+    <div
+      *ngFor="let message of outputTerminal"
+      [ngClass]="{'terminal__message--warning': message.type === 'warning', 'terminal__message--error': message.type === 'error'}"
+      class="terminal__message">
+      <p class="terminal__p">
+       {{  ( message.lineIndex !== -1 ? message.lineIndex + ':' + message.wordIndex + ' ' : '')}} {{ message.type.toUpperCase() }}: {{message.message}}
+      </p>
+    </div>
+  </div>
+
+  <div class="about">
+    <p>Powered by:
+      <a
+        class="about__title"
+        href="https://angular.io/"
+        target="_blank">Angular</a>
+      &
+      <a
+        class="about__title"
+        href="https://firebase.google.com"
+        target="_blank">Firebase</a>
+    </p>
+    <p>Developer : Ali Akbar Toghiani</p>
+    <p>Email: ali.toghiani.dev@gmail.com</p>
+  </div>
+
+</div>
