@@ -25,13 +25,13 @@
   width: 100%;
   padding: .5em;
   box-sizing: border-box;
-  font-family: ModeSeven;
+  font-family: "ModeSeven";
 }
 
 .section{
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
 
   &__title{
     text-align: center;

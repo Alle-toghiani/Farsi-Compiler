@@ -27,9 +27,9 @@ export class CompilerComponent implements OnInit {
   constructor() { }
   form : NgForm;
   analyserState = {
-    'lexicalAnalyser':false,
-    'syntaxAnalyser':false,
-    'semanticAnalyser':false
+    'lexicalAnalyser':null,
+    'syntaxAnalyser':null,
+    'semanticAnalyser':null
   }
   inputText : string = null;
 
@@ -55,16 +55,20 @@ export class CompilerComponent implements OnInit {
   }
 
   onSubmit(form : NgForm){
-    this.form = form;
+
+    this.inputText = form.value.inputText;
+
     this.outputTerminal = [];
     this.outputText = [];
-    this.lexicalAnalyser();
+    this.variables = [];
+
+    this.analyserState.lexicalAnalyser = this.lexicalAnalyser();
+    console.log(this.analyserState);
     this.syntaxAnalyser()
   }
 
   lexicalAnalyser(){
-    this.outputTerminal = [];
-    this.inputText = this.form.value.inputText;
+
     let lineIndex = 1;
     let wordIndex = 1;
     let errorsCount = 0;
@@ -86,23 +90,23 @@ export class CompilerComponent implements OnInit {
         if (this.reservedWords.indexOf(word) === -1){
           //if the word is not in the reserved words array
           if (this.checkIsNumber(word)){
-            // console.log(word + ' is a number')
+            // If its not reserved, is it a number, like :123
           }
           else if (this.checkIsVariableName(word)){
-            // console.log(word + ' is a variable')
+            //if its not reserved or number, is it a variable name
+
           }
           else if (this.checkIsString(word)){
-            // console.log(word + ' is a string')
+            // if its not reserved, a number or a variable name is it a string like "متن"
 
           } else {
-
+            //if its not any of the above then its an Unknown word
             this.pushMessageToterminal(
               lineIndex,
               wordIndex,
               'error',
               'Unknown word',
-              word
-            )
+              word)
             errorsCount++;
           }
         }
@@ -113,15 +117,16 @@ export class CompilerComponent implements OnInit {
     }
     lineIndex = 0;
     return errorsCount>0 ? false : true;
+
   }
 
   syntaxAnalyser(){
 
-    let listOfWords = this.form.value.inputText.trim().split(/\s+/);
+    let listOfWords = this.inputText.trim().split(/\s+/);
     let startEndCount=0;
     let wordIndex = 0;
-    let senctences : string[] = this.inputText.split('\n');
     let lineIndex = 0;
+    let senctences : string[] = this.inputText.split('\n');
     //check for whitespace => warning
 
     for (let wordTemp of listOfWords){
@@ -253,6 +258,7 @@ export class CompilerComponent implements OnInit {
     else return Number(varName)
   }
 
+  // variable name must only consist of persian letters and numbers and it shoulden't start with numbers
   checkIsVariableName(word:string){
     return word.match('^['+this.regex+'_$]['+this.regex+'_$0-9]*$') ? true : false;
   }
@@ -261,6 +267,7 @@ export class CompilerComponent implements OnInit {
      let varIndex = this.variables.map( (e) => e.name).indexOf(varName);
     return varIndex;
   }
+
   checkIsString(word){
     return (word[0] === '"' && word[word.length - 1] === '"') ? true : false;
   }
