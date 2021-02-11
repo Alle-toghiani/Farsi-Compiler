@@ -2,37 +2,6 @@
   box-sizing: border-box;
 }
 
-.notice{
-  width: 100%;
-  background-color: orange;
-
-  &__message{
-
-  }
-}
-.container{
-  margin-left: auto;
-  margin-right: auto;
-  background-color: antiquewhite;
-  display: flex;
-  flex-flow: column wrap;
-  width: 90%;
-  max-width: 1420px;
-  align-items: center;
-
-  &__title{
-    text-align: center;
-    font-weight: bold;
-    font-family: Arial;
-  }
-
-  &__input{
-    width: 100%;
-
-  }
-
-
-}
 .form{
   display: flex;
   flex-flow: column wrap;
@@ -41,7 +10,7 @@
   justify-items: center;
   width: 100%;
 
-  &__main{
+  &__container{
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -50,37 +19,21 @@
   }
 
   &__title{
-    text-align: center;
-    font-style: italic;
-    background-color: antiquewhite;
+
   }
 
   &__textArea{
-    min-width: 20em;
-    min-height: 20em;
-    max-width: 30em;
-    height: 30em;
+
   }
 
 
-  &__input{
+  &__section{
     //background-color: red;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-
 
   }
   &__output{
 
-    display: flex;
-    flex-flow: column;
-    width: 25em;
-    height: 25em;
-    background-color: white;
-    &__message{
-      margin:5px;
-    }
+
   }
 
   &__actions{
@@ -102,31 +55,33 @@
   padding: .5em;
   background-color: #404040;
   box-sizing: border-box;
-  font-family: Arial;
-
-  &__title{
-    color:white;
-  }
-  &__p{
-    margin:5px;
-  }
-  &__message{
-    border: 1px solid black;
-    margin-bottom: 2px;
-    padding-left: .2em;
-
-    &--warning{
-      color: yellow;
-
-    }
-    &--error{
-      color: red;
-    }
-  }
-
+  font-family: ModeSeven;
 }
 
+.section{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 
-.about{
+  &__title{
+    text-align: center;
+    font-style: italic;
+  }
+
+  &__textarea{
+    align-self: center;
+    min-height: 20em;
+  }
+
+  &__output{
+    display: flex;
+    flex-flow: column;
+    height: 20em;
+    background-color: white;
+  }
+
+  &__message{
+    margin:5px;
+  }
 
 }

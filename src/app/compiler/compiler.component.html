@@ -1,61 +1,65 @@
-<div class="container">
-  <div class="notice">
-    <p dir="rtl" class="notice__message">
-      در هنگام مقدار دهی در دو طرف علامت " - " اسپیس قرار دهید
-    </p>
-  </div>
-  <div class="container__input">
-    <h1 class="container__title">Farsi Compiler</h1>
+<div class="container p-3 bg-light">
+  <h1  class="text-center m-3">Farsi Compiler</h1>
+
     <form
       #f="ngForm"
       (ngSubmit)="onSubmit(f)"
       class="form" >
-      <div class="form__main">
-        <div class="form__input">
-          <label class="form__title">INPUT Commands</label>
+
+      <div class="form__container w-100 ">
+
+        <div class="section col-12 col-sm-5 ">
+
+          <label  for="textArea" class="section__title">INPUT Commands</label>
+
             <textarea ngModel
               dir="rtl"
-              id="inputText"
-                      class="form__textArea"
-              name="inputText"
-              >
+              id="textArea"
+              class="section__textarea w-100"
+              name="inputText" >
              </textarea>
         </div>
-        <div class="form__output">
-          <label class="form__title">OUTPUT results</label>
-          <p class="form__output__message"
-            *ngFor="let message of outputText,let i = index"
-            dir="rtl">
-            {{message}}
-          </p>
+
+        <div class="section col-12 col-sm-5 ">
+
+          <label class="section__title ">OUTPUT results</label>
+
+          <div class="section__output border border-3">
+            <p class="section__message"
+              *ngFor="let message of outputText"
+              dir="rtl">
+              {{message}}
+            </p>
+          </div>
+
         </div>
+
       </div>
 
-      <div class="form__actions">
-        <button type="submit" class="form__submitBtn">Compile</button>
+      <div class="form__actions my-3">
+        <button type="submit" class="btn btn-primary">Compile</button>
       </div>
 
+      <div class="alert alert-warning w-100 py-0 my-2" >
+        <p class=" ">
+          جدا کردن کلمات توسط حرف فاصله صورت می گیرد، بنابراین بین تمامی کلمات و عملگر ها ( - , + ) و کلمه قبلی و بعدی فاصله (space) قرار دهید.
+        </p>
+      </div>
     </form>
-  </div>
 
+    <div dir="ltr" class="terminal bg-dark">
 
-  <div class="stateOutput">
+      <label class="text-white">Terminal: </label>
 
-  </div>
-  <div class="terminal">
-    <label class="terminal__title">Terminal: </label>
-    <br>
-    <div
-      *ngFor="let message of outputTerminal"
-      [ngClass]="{'terminal__message--warning': message.type === 'warning', 'terminal__message--error': message.type === 'error'}"
-      class="terminal__message">
-      <p class="terminal__p">
-       {{  ( message.lineIndex !== -1 ? message.lineIndex + ':' + message.wordIndex + ' ' : '')}} {{ message.type.toUpperCase() }}: {{message.message}}
-      </p>
+      <div class="terminal__message">
+        <p *ngFor="let message of outputTerminal" class="m-1 p-1"
+           [ngClass]="{'alert alert-warning': message.type === 'warning', 'alert alert-danger': message.type === 'error'}">
+         {{  ( message.lineIndex !== -1 ? message.lineIndex + ':' + message.wordIndex + ' ' : '')}} {{ message.type.toUpperCase() }}: {{message.message}}
+        </p>
+      </div>
     </div>
-  </div>
 
-  <div class="about">
+  <div dir="ltr" class="about">
     <p>Powered by:
       <a
         class="about__title"
@@ -67,8 +71,7 @@
         href="https://firebase.google.com"
         target="_blank">Firebase</a>
     </p>
-    <p>Developer : Ali Akbar Toghiani</p>
-    <p>Email: ali.toghiani.dev@gmail.com</p>
+    <p>Source Code: </p>
   </div>
 
 </div>
