@@ -17,35 +17,6 @@
     gap: 1em;
     direction: rtl;
   }
-
-  &__title{
-
-  }
-
-  &__textArea{
-
-  }
-
-
-  &__section{
-    //background-color: red;
-
-  }
-  &__output{
-
-
-  }
-
-  &__actions{
-
-  }
-  &__submitBtn{
-
-    margin:1em;
-    padding:1em;
-    text-align: center;
-    align-self: center;
-  }
 }
 
 .terminal{
@@ -53,7 +24,6 @@
   margin-top: 1em;
   width: 100%;
   padding: .5em;
-  background-color: #404040;
   box-sizing: border-box;
   font-family: ModeSeven;
 }
