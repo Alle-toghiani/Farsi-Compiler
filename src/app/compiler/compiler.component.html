@@ -39,7 +39,7 @@
 
           <div class="section__output border border-3">
             <p class="section__message"
-              *ngFor="let message of outputText"
+              *ngFor="let message of outputResults"
               dir="rtl">
               {{message}}
             </p>
@@ -60,7 +60,7 @@
       <label class="text-white">Terminal: </label>
 
       <div class="terminal__message">
-        <p *ngFor="let message of outputTerminal" class="m-1 p-1"
+        <p *ngFor="let message of terminalMessages" class="m-1 p-1"
            [ngClass]="{'alert alert-warning': message.type === 'warning', 'alert alert-danger': message.type === 'error'}">
          {{  ( message.lineIndex !== -1 ? message.lineIndex + ':' + message.wordIndex + ' ' : '')}} {{ message.type.toUpperCase() }}: {{message.message}}
         </p>
