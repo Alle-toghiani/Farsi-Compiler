@@ -63,7 +63,6 @@ export class CompilerComponent implements OnInit {
     this.variables = [];
 
     this.analyserState.lexicalAnalyser = this.lexicalAnalyser();
-    console.log(this.analyserState);
     this.syntaxAnalyser()
   }
 
@@ -183,22 +182,6 @@ export class CompilerComponent implements OnInit {
             //variable is defined
             if (this.checkIsNumber(words[wordIndex + 1]) && this.variables[variableIndex].type === 'number') {
               //variable is of type number
-              if (words.indexOf('+') !== -1){
-                //command includes +
-                let indexOfplus = words.indexOf('+');
-                if ( this.checkIsNumber(words[ indexOfplus + 1]) && this.checkIsNumber(words[indexOfplus - 1])){
-                  let summation: number = this.getNumericValue(words[wordIndex -1 ]) + this.getNumericValue(words[wordIndex + 1]);
-                  this.variables[variableIndex].value =  summation;
-                  console.log(this.variables)
-                }else {
-                  this.pushMessageToterminal(
-                    lineIndex,
-                    wordIndex,
-                    'error',
-                    'Inconsistent type,' + words[indexOfplus + 1] + 'is not assignable to type ' + words[indexOfplus - 1])
-                }
-              } else
-              this.variables[variableIndex].value = Number(words[wordIndex + 1]);
             } else if (this.checkIsString(words[wordIndex + 1]) && this.variables[variableIndex].type === 'string') {
               //variable is of type string
               this.variables[variableIndex].value = words[wordIndex + 1].replace('"', '') ;
@@ -210,6 +193,24 @@ export class CompilerComponent implements OnInit {
                 'Type' + words[wordIndex + 1] + 'is not assignable to type ' + words[wordIndex - 1], words[wordIndex - 1])
               return false;
             }
+            if (words.indexOf('+') !== -1){
+              //command includes +
+
+            let indexOfplus = words.indexOf('+');
+              console.log(words[ indexOfplus + 1],words[ indexOfplus - 1]);
+            if ( this.checkIsNumber(words[ indexOfplus + 1]) && this.checkIsNumber(words[indexOfplus - 1])){
+              let summation: number = this.getNumericValue(words[indexOfplus -1 ]) + this.getNumericValue(words[indexOfplus + 1]);
+              this.variables[variableIndex].value =  summation;
+              console.log("Sum",summation)
+            }else {
+              this.pushMessageToterminal(
+                lineIndex,
+                wordIndex,
+                'error',
+                'Inconsistent type,' + words[indexOfplus + 1] + 'is not assignable to type ' + words[indexOfplus - 1])
+            }
+          } else
+            this.variables[variableIndex].value = Number(words[wordIndex + 1]);
 
           } else {
             this.pushMessageToterminal(
