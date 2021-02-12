@@ -7,14 +7,11 @@ export interface errorMessage {
   type:string;
   message:string;
 }
+
 interface variable{
   type:'string'|'number';
   name:string,
   value:number | string;
-}
-interface stringVariable{
-  name:string,
-  value:string
 }
 
 @Component({
@@ -31,7 +28,6 @@ export class CompilerComponent implements OnInit {
     'syntaxAnalyser':null,
     'semanticAnalyser':null
   }
-  inputText : string = null;
 
   regex = '\u0621-\u0628\u062A-\u063A\u0641-\u0642\u0644-\u0648\u064E-\u0651\u0655\u067E\u0686\u0698\u06A9\u06AF\u06BE\u06CC';
   reservedWords: string[] = [
@@ -49,14 +45,13 @@ export class CompilerComponent implements OnInit {
   outputTerminal: errorMessage[] = [];
   outputText: string[] = [];
   variables: variable[] = [];
-  stringVariables: stringVariable[] = [];
+  senctences : string[];
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(form : NgForm){
 
-    this.inputText = form.value.inputText;
+    this.senctences = form.value.inputText.split('\n')
 
     this.outputTerminal = [];
     this.outputText = [];
@@ -71,10 +66,9 @@ export class CompilerComponent implements OnInit {
     let lineIndex = 1;
     let wordIndex = 1;
     let errorsCount = 0;
-    let senctences : string[] = this.inputText.split('\n')
 
     //check for whitespace => warning
-    for (let sentence of senctences){
+    for (let sentence of this.senctences){
       if ( sentence.length !== sentence.trim().length){
         sentence = sentence.trim()
         this.pushMessageToterminal(
@@ -121,11 +115,10 @@ export class CompilerComponent implements OnInit {
 
   syntaxAnalyser(){
 
-    let listOfWords = this.inputText.trim().split(/\s+/);
+    let listOfWords = this.form.value.inputText.trim().split(/\s+/);
     let startEndCount=0;
     let wordIndex = 0;
     let lineIndex = 0;
-    let senctences : string[] = this.inputText.split('\n');
     //check for whitespace => warning
 
     for (let wordTemp of listOfWords){
@@ -153,7 +146,7 @@ export class CompilerComponent implements OnInit {
     }
 
 
-    for (let sentence of senctences) {
+    for (let sentence of this.senctences) {
       let words: string[] = sentence.split(' ')
       for (let word of words) {
         if (word === 'عدد') {
