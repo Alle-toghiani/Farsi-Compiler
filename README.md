@@ -1,27 +1,42 @@
-# FarsiCompiler
+# کامپایلر فارسی
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+این پروژه مربوط به درس "طراحی زبان های برنامه سازی" رشته مهندسی کامپیوتر و هدف آن ایجاد یک شبه زبان برنامه نویسی با دستورات فارسی است
+##Live Demo
 
-## Development server
+[farsicompiler.web.app](farsicompiler.web.app)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## توضیحات پروژه
+می خواهیم الگوریتم یک کامپایلر برای یک زبان برنامه نویسی اولیه و ساده با قابلیت پردازش زبان فارسی ایجاد کنیم
+این زبان می باید قابلیت های زیر را داشته باشد
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* تعریف متغیر )عددی و رشته ای(
+  * تعریف عدد الف1
+  * تعریف رشته سین1
+* تعریف بلاک با دستور شروع و دستور پایان
+  * شروع
+  * ...
+  * پایان
+* انتساب مقدار به متغیر با عملگر -
+  * الف1 - 12
+  * سین1 - "رضا"و
+* عملگر جمع برای متغیر های عددی
+  * الف1- الف1 + 10
+* چاپ مقدار با دستور چاپ
+  * چاپ "سلام" و
+  * چاپ سین1
+ 
+  مثال:
+  ###ورودی
+  شروع
+  عدد الف1
+  رشته سین1
+  الف1 - 5
+  سین1 - "سلام"
+  الف1 - الف1 + 3
+  چاپ الف1
+  چاپ سین1
+  پایان
+  
+  ###خروجی
+  10
+  سلام
