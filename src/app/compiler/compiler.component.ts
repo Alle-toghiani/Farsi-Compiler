@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 
-export interface errorMessage {
+interface errorMessage {
   lineIndex:number;
   wordIndex:number
   type:string;
@@ -21,8 +21,8 @@ interface variable{
 })
 
 export class CompilerComponent implements OnInit {
-  constructor() { }
-  form : NgForm;
+  constructor() {}
+
   analyserState = {
     'lexicalAnalyser':null,
     'syntaxAnalyser':null,
@@ -30,6 +30,7 @@ export class CompilerComponent implements OnInit {
   }
 
   regex = '\u0621-\u0628\u062A-\u063A\u0641-\u0642\u0644-\u0648\u064E-\u0651\u0655\u067E\u0686\u0698\u06A9\u06AF\u06BE\u06CC';
+
   reservedWords: string[] = [
     'شروع',
     'پایان',
@@ -42,16 +43,19 @@ export class CompilerComponent implements OnInit {
     '=',
     '-'
   ]
+
   outputTerminal: errorMessage[] = [];
   outputText: string[] = [];
   variables: variable[] = [];
-  senctences : string[];
+  sentences : string[];
+  listOfWords: string[];
 
   ngOnInit(): void {}
 
   onSubmit(form : NgForm){
 
-    this.senctences = form.value.inputText.split('\n')
+    this.sentences = form.value.inputText.split('\n');
+    this.listOfWords = form.value.inputText.trim().split(/\s+/);
 
     this.outputTerminal = [];
     this.outputText = [];
@@ -68,7 +72,7 @@ export class CompilerComponent implements OnInit {
     let errorsCount = 0;
 
     //check for whitespace => warning
-    for (let sentence of this.senctences){
+    for (let sentence of this.sentences){
       if ( sentence.length !== sentence.trim().length){
         sentence = sentence.trim()
         this.pushMessageToterminal(
@@ -109,32 +113,33 @@ export class CompilerComponent implements OnInit {
       lineIndex++;
     }
     lineIndex = 0;
+    //If the number of errors is more than 0 return false, meaning process halted during lexical analyzing phase
     return errorsCount>0 ? false : true;
 
   }
 
   syntaxAnalyser(){
 
-    let listOfWords = this.form.value.inputText.trim().split(/\s+/);
     let startEndCount=0;
     let wordIndex = 0;
     let lineIndex = 0;
+
     //check for whitespace => warning
 
-    for (let wordTemp of listOfWords){
+    for (let wordTemp of this.listOfWords){
       if ( wordTemp === 'شروع'){
         startEndCount++;
       }else if (wordTemp === 'پایان'){
         startEndCount--;
       }
     }
-    if( listOfWords.length === 1 && listOfWords[0] === ''){
+    if( this.listOfWords.length === 1 && this.listOfWords[0] === ''){
       return
     }
-    if ( (listOfWords[0]!=='') && listOfWords[0] !==  'شروع'){
+    if ( (this.listOfWords[0]!=='') && this.listOfWords[0] !==  'شروع'){
       this.pushMessageToterminal(0,0,'error','No start argument found', 'شروع')
 
-    }else if ( listOfWords[listOfWords.length -1] !== 'پایان'){
+    }else if ( this.listOfWords[this.listOfWords.length -1] !== 'پایان'){
       this.pushMessageToterminal(0,0,'error','No finish argument found', 'پایان')
 
     }else if (startEndCount !== 0){
@@ -146,7 +151,7 @@ export class CompilerComponent implements OnInit {
     }
 
 
-    for (let sentence of this.senctences) {
+    for (let sentence of this.sentences) {
       let words: string[] = sentence.split(' ')
       for (let word of words) {
         if (word === 'عدد') {
